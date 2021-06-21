@@ -20,8 +20,29 @@ export class HeroisService {
         map((resp: any) => {
           heroi.id = resp.name
           return heroi;
-          })
-        )
-
+        })
+      );
   }
+
+
+  //Atualizar 
+  atualizarHeroi(heroi: HeroiModel) {
+
+    interface HeroiTemp {
+       id   ?: string;
+       nome ?: string;
+       poder?: string;
+       vivo ?: boolean
+    }
+
+     const heroiTemp: HeroiTemp = {
+      ...heroi
+     };
+    
+    delete heroiTemp.id;
+
+    return this.http.put(` ${this.url }/herois/${ heroi.id }.json`, heroiTemp);
+    
+  }
+
 }
