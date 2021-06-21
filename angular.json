@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "d48748b7-a14f-46ae-8cdf-3509e3d71b33"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -26,10 +29,17 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              "src/styles.css"
+          "styles": [
+  
+              "src/styles.css",
+               "./src/assets/b4/css/bootstrap.min.css",
+               "./src/assets/css/animate.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./src/assets/jquery/jquery.slim.min.js", 
+              "./src/assets/tether/tether.min.js",
+              "./src/assets/b4/js/bootstrap.min.js"
+           ]
           },
           "configurations": {
             "production": {

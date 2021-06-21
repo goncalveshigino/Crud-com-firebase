@@ -1,0 +1,90 @@
+<h1>Heroi <small>Nome do Heroi</small></h1>
+<hr> 
+
+<div class="row text-right">
+    <div class="col">
+        <button class="btn btn-danger" routerLink="/herois">
+           <i class="fa fa-arrow-left"></i>
+           Voltar
+        </button>
+    </div>
+</div> 
+
+
+
+<div class="row animated fadIn faster">
+<div class="col">
+  
+
+    <form (ngSubmit)="salvar(f)" #f="ngForm">
+        <div class="form-group">
+           <label> Firebase ID</label>
+            <input 
+              type="text" 
+              placeholder="Farebase ID"
+              [(ngModel)]="heroi.id"
+              name="id"
+              class="form-control"
+              disabled="disabled"
+            >
+            <small class="form-text text-muted"> Este campo é autogerado</small>
+
+        </div> 
+
+         <div class="form-group">
+           <label> Nome</label>
+            <input 
+              type="text" 
+              placeholder="Nome do Heroi"
+              [(ngModel)]="heroi.nome"
+              name="nome"
+              class="form-control"
+             required
+            >
+        </div> 
+
+         <div class="form-group">
+           <label> Poder</label>
+            <input 
+              type="text" 
+              placeholder="Poder do heroi"
+              [(ngModel)]="heroi.poder"
+              name="poder"
+              class="form-control"
+         
+            >
+        </div> 
+
+        <div class="form-group">
+            <label>Estado</label>
+            <br>
+
+            <button *ngIf="heroi.vivo"
+                    (click)="heroi.vivo = false"
+                    class="btn btn-outline-success w-50" type="button">
+               <i class="far fa-smile"></i>
+               Vivo
+            </button>
+
+            <button *ngIf="!heroi.vivo"
+                    (click)="heroi.vivo = true"
+                    class="btn btn-outline-danger w-50" type="button">
+               <i class="fal fa-dizzy"></i>
+               Morto
+            </button>
+
+        </div>
+
+
+        <hr>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary w-25">
+                <i class="fa fa-save"></i>
+                Salvar
+            </button>
+        </div>
+
+    </form>
+
+</div>
+</div>
