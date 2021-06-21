@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { HeroiModel } from 'src/app/models/heroi.model';
 import { HeroisService } from 'src/app/services/herois.service';
+
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-heroi',
@@ -24,11 +27,48 @@ export class HeroiComponent implements OnInit {
       return;
     }
 
-    this.heroiServices.criarHeroi(this.heroi)
-      .subscribe(resp => {
-        console.log(resp);
-        this.heroi = resp;
-       })
+    Swal.fire({
+
+      title: 'Espere',
+      text: 'Guardando a informacao',
+       icon: 'info',
+      allowOutsideClick: false
+    });
+
+    Swal.showLoading();
+    
+    let peticao: Observable<any>;
+
+    if (this.heroi.id) {
+      peticao = this.heroiServices.atualizarHeroi(this.heroi);
+
+        peticao.subscribe(resp => {
+      
+          Swal.fire({
+            title: this.heroi.nome,
+            text: 'Atualizado com sucesso',
+            icon: 'success',
+          })
+
+        });
+   
+    } else {
+      peticao = this.heroiServices.criarHeroi(this.heroi)
+        peticao.subscribe(resp => {
+      
+          Swal.fire({
+            title: this.heroi.nome,
+            text: ' Sucesso',
+            icon: 'success',
+          })
+
+        });
+     
+    }
+    
+   
+
+   
  }
 
 }
