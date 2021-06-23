@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+
+
 import { HeroiModel } from 'src/app/models/heroi.model';
 import { HeroisService } from 'src/app/services/herois.service';
 
@@ -13,11 +16,27 @@ import Swal from 'sweetalert2';
 })
 export class HeroiComponent implements OnInit {
 
-  heroi = new HeroiModel();
+  heroi: HeroiModel = new HeroiModel();
 
-  constructor( private heroiServices: HeroisService ) { }
+  constructor(private heroiService: HeroisService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    //Obter o argumento passado pela url
+    const id = this.route.snapshot.paramMap.get('id');
+    
+    if (id !== 'novo') {
+       
+      this.heroiService.getHeroi(id)
+        .subscribe((resp: HeroiModel) => {
+          this.heroi = resp;
+          this.heroi.id = id;
+        });
+        
+    }
+    
+
   }
 
   salvar( form: NgForm ) {
@@ -42,7 +61,7 @@ export class HeroiComponent implements OnInit {
     if (this.heroi.id) {
       peticao = this.heroiServices.atualizarHeroi(this.heroi);
 
-        peticao.subscribe(resp => {
+         peticao.subscribe(resp => {
       
           Swal.fire({
             title: this.heroi.nome,
