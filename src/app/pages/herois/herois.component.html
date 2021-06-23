@@ -21,15 +21,31 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-    </tr>
-    
-   
+  
+
+    <tr *ngFor="let heroi of herois; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ heroi.nome }}</td>
+      <td>{{ heroi.poder }}</td>
+
+      <td>
+      <label  *ngIf="heroi.vivo" class="badge badge-success">Vivo</label>
+      <label  *ngIf="!heroi.vivo" class="badge badge-danger">Morto</label>
+      </td>
+
+      <td>
+
+       <button class="btn btn-info mr-1" [routerLink]="['/heroi', heroi.id]">
+         <i class="fa fa-open"></i>
+       </button>
+
+          <button class="btn btn-info mr-1">
+         <i class="fa fa-trash"></i>
+       </button>
+
+      </td>
+
+   </tr>
   </tbody>
 </table>
 
