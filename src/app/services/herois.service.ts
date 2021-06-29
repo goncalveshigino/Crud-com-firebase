@@ -49,8 +49,27 @@ export class HeroisService {
   getHerois() {
     return this.http.get(`${this.url}/herois.json`)
       .pipe(
-        map(this.criarArreglo),
+        map( this.createArray ),
       );
+  }
+
+
+  private createArray( heroisObj: Object) {
+    
+
+    const herois: HeroiModel[] = [];
+
+    console.log(herois);
+    
+    if (heroisObj === null) { return []; };
+    
+     Object.keys(heroisObj).forEach(key => {
+        
+      const heroi: HeroiModel = heroisObj[key]
+
+     });
+
+      return 'herois'
   }
 
   //Para atualizar uma heroi
@@ -58,22 +77,5 @@ export class HeroisService {
     return this.http.get(`${ this.url }/herois/${ id }.json`)
   }
   
-    private criarArreglo( heroiObj: object ) {
-
-    const herois: HeroiModel[] = [];
-
-    Object.keys( heroiObj ).forEach( key => {
-
-      const heroi: HeroiModel = heroiObj[key];
-      heroi.id = key;
-
-      herois.push( heroi );
-    });
-
-    return herois;
-
-    }
-  
-  
-    
+ 
 }
