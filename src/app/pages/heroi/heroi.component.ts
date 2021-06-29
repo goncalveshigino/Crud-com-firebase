@@ -18,7 +18,7 @@ export class HeroiComponent implements OnInit {
 
   heroi: HeroiModel = new HeroiModel();
 
-  constructor(private heroiService: HeroisService,
+  constructor(private heroisService: HeroisService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -28,10 +28,9 @@ export class HeroiComponent implements OnInit {
     
     if (id !== 'novo') {
        
-      this.heroiService.getHeroi(id)
-        .subscribe((resp: HeroiModel) => {
-          this.heroi = resp;
-          this.heroi.id = id;
+      this.heroisService.getHerois()
+        .subscribe(resp => {
+           console.log(resp);
         });
         
     }
@@ -59,7 +58,7 @@ export class HeroiComponent implements OnInit {
     let peticao: Observable<any>;
 
     if (this.heroi.id) {
-      peticao = this.heroiServices.atualizarHeroi(this.heroi);
+      peticao = this.heroisService.atualizarHeroi(this.heroi);
 
          peticao.subscribe(resp => {
       
@@ -72,7 +71,7 @@ export class HeroiComponent implements OnInit {
         });
    
     } else {
-      peticao = this.heroiServices.criarHeroi(this.heroi)
+      peticao = this.heroisService.criarHeroi(this.heroi)
         peticao.subscribe(resp => {
       
           Swal.fire({
